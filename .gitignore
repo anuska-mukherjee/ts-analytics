@@ -1,32 +1,37 @@
 
-# Python virtual environment
-.venv/
-venv/
-
-# Visual Studio temporary files
-.vs/
-
-# Python cache
+# Python
 __pycache__/
 *.py[cod]
-.pytest_cache/
-
-# Environment variables and secrets
-.env
-.env.*
-
-# Jupyter checkpoints
-.ipynb_checkpoints/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Build files
+*$py.class
+*.so
+.Python
 build/
 dist/
 *.egg-info/
 
-# Generated datasets and ground-truth labels
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Visual Studio
+.vs/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Generated datasets
 data/raw/*.csv
 data/answer_key/*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE settings
+.vscode/
+
+# Operating system files
+.DS_Store
+Thumbs.db
