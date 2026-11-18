@@ -1,0 +1,132 @@
+
+version: 2
+
+models:
+  - name: stg_users
+    description: "One row per user. Email and IP are hashed."
+    columns:
+      - name: user_id
+        description: "Unique identifier for each user."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: email_hash
+        description: "MD5 hash of the user's lowercase email."
+        data_tests:
+          - not_null
+
+      - name: signup_ip_hash
+        description: "MD5 hash of the user's signup IP."
+        data_tests:
+          - not_null
+
+  - name: stg_devices
+    description: "One row per user and device pair."
+    columns:
+      - name: user_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+      - name: device_id
+        data_tests:
+          - not_null
+
+  - name: stg_messages
+    description: "Cleaned user-to-user message records."
+    columns:
+      - name: message_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: sender_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+  - name: stg_reports
+    description: "Standardised user-generated reports."
+    columns:
+      - name: report_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: target_user_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+      - name: reason
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - spam
+                  - scam
+                  - harassment
+
+  - name: stg_moderators
+    description: "Cleaned moderator records."
+    columns:
+      - name: moderator_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_moderation_actions
+    description: "Standardised moderation decisions."
+    columns:
+      - name: action_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: report_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_reports')
+                field: report_id
+
+      - name: action_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - remove_content
+                  - warn
+                  - suspend
+                  - no_action
+
+  - name: stg_appeals
+    description: "Cleaned moderation appeal records."
+    columns:
+      - name: appeal_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: action_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_moderation_actions')
+                field: action_id
+
+      - name: outcome
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - upheld
+                  - overturned

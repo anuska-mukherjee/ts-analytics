@@ -1,0 +1,15 @@
+
+version: 2
+
+sources:
+  - name: raw
+    meta:
+      external_location: "read_csv_auto('../data/raw/{name}.csv')"
+    tables:
+      - name: users
+      - name: devices
+      - name: messages
+      - name: reports
+      - name: moderators
+      - name: moderation_actions
+      - name: appeals

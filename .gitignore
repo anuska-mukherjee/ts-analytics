@@ -35,3 +35,12 @@ data/answer_key/*.csv
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# DuckDB database files
+*.duckdb
+*.duckdb.wal
+
+# dbt generated files
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
