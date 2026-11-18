@@ -26,3 +26,7 @@ Thumbs.db
 build/
 dist/
 *.egg-info/
+
+# Generated datasets and ground-truth labels
+data/raw/*.csv
+data/answer_key/*.csv
