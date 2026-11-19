@@ -1,0 +1,39 @@
+
+name: dbt-ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/dbt_project
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate synthetic data
+        run: |
+          mkdir -p data/raw data/answer_key
+          python -m data_gen.gen_users
+          python -m data_gen.gen_activity
+
+      - name: Build dbt models and run tests
+        working-directory: dbt_project
+        run: |
+          dbt deps
+          dbt build
