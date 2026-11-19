@@ -1,3 +1,4 @@
+
 with actions as (
     select
         moderator_id,
@@ -24,24 +25,36 @@ base as (
         m.team,
         r.reports_reviewed,
         a.enforcement_actions,
-        round(a.enforcement_actions * 1.0 / r.reports_reviewed, 3) as enforcement_rate,
+
+        {{ safe_rate('a.enforcement_actions', 'r.reports_reviewed') }}
+            as enforcement_rate,
+
         a.appeals,
         a.overturned,
-        round(a.overturned * 1.0 / a.enforcement_actions, 3) as overturn_rate,
-        round(r.median_hours_to_action, 1) as median_hours_to_action
+
+        {{ safe_rate('a.overturned', 'a.enforcement_actions') }}
+            as overturn_rate,
+
+        round(r.median_hours_to_action, 1)
+            as median_hours_to_action
+
     from {{ ref('dim_moderators') }} m
-    join reviewed r on m.moderator_id = r.moderator_id
-    join actions a on m.moderator_id = a.moderator_id
+    join reviewed r
+        on m.moderator_id = r.moderator_id
+    join actions a
+        on m.moderator_id = a.moderator_id
 ),
 
 team_median as (
-    select median(overturn_rate) as median_overturn_rate
+    select
+        median(overturn_rate) as median_overturn_rate
     from base
 )
 
 select
     b.*,
     t.median_overturn_rate,
-    b.overturn_rate > 2 * t.median_overturn_rate as is_overturn_outlier
+    b.overturn_rate > 2 * t.median_overturn_rate
+        as is_overturn_outlier
 from base b
 cross join team_median t

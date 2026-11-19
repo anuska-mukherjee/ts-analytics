@@ -1,3 +1,4 @@
+
 version: 2
 
 models:
@@ -54,3 +55,16 @@ models:
     columns:
       - name: report_date
         data_tests: [unique, not_null]
+
+  - name: fct_user_risk_daily
+    description: One row per user per day with risk signals. Incremental, re-processes the last 3 days.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, snapshot_date]
+    columns:
+      - name: account_age_days
+        data_tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0

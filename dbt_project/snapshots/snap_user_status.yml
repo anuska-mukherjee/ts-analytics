@@ -1,0 +1,7 @@
+snapshots:
+  - name: snap_user_status
+    relation: ref('int_user_status_asof')
+    config:
+      unique_key: user_id
+      strategy: check
+      check_cols: [status]
