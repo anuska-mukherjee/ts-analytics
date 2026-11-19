@@ -1,0 +1,9 @@
+dbt-core==1.11.17
+dbt-duckdb==1.11.1
+duckdb
+pandas
+numpy
+faker
+networkx
+scikit-learn
+streamlit

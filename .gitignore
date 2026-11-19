@@ -44,3 +44,13 @@ Thumbs.db
 dbt_project/target/
 dbt_project/dbt_packages/
 dbt_project/logs/
+
+# Local dbt state
+dbt_project/.user.yml
+
+# Local logs
+logs/
+
+# Generated Python cache
+data_gen/__pycache__/
+analysis/__pycache__/
