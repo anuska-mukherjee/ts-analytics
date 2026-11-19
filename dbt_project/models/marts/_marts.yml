@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: fct_reports
+    description: One row per user report, with its moderation outcome and appeal.
+    columns:
+      - name: report_id
+        data_tests: [unique, not_null]
+      - name: target_user_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_users')
+                field: user_id
+      - name: moderator_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_moderators')
+                field: moderator_id
+
+  - name: fct_enforcement_actions
+    description: One row per enforcement action (warn, remove content, suspend). Excludes no-action decisions.
+    columns:
+      - name: action_id
+        data_tests: [unique, not_null]
+      - name: action_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['remove_content', 'warn', 'suspend']
+
+  - name: dim_users
+    description: One row per user, with link-analysis and report/enforcement history.
+    columns:
+      - name: user_id
+        data_tests: [unique, not_null]
+
+  - name: dim_moderators
+    description: One row per moderator.
+    columns:
+      - name: moderator_id
+        data_tests: [unique, not_null]
+
+  - name: mart_moderator_quality
+    description: Per-moderator volume, speed, and appeal overturn rate, with an outlier flag.
+    columns:
+      - name: moderator_id
+        data_tests: [unique, not_null]
+
+  - name: mart_ts_kpis_daily
+    description: Daily Trust & Safety KPIs (report rate, time to action, SLA breaches).
+    columns:
+      - name: report_date
+        data_tests: [unique, not_null]
