@@ -17,7 +17,7 @@ clean-targets:
 models:
   dbt_project:
     staging:
-      +materialized: view
+      +materialized: table
     intermediate:
       +materialized: view
     marts:

@@ -1,0 +1,30 @@
+
+version: 2
+
+models:
+  - name: int_account_links
+    description: "One row per connected pair of accounts, with the reason (shared device or shared signup IP)."
+
+  - name: int_user_link_stats
+    description: "One row per user with counts of linked accounts."
+    columns:
+      - name: user_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: int_report_to_action
+    description: "One row per report, joined to its moderation action and appeal."
+    columns:
+      - name: report_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: int_user_report_history
+    description: "One row per report with rolling prior-report counts for the reported user."
+    columns:
+      - name: report_id
+        data_tests:
+          - unique
+          - not_null
