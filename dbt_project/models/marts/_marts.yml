@@ -68,3 +68,13 @@ models:
           - dbt_utils.accepted_range:
               arguments:
                 min_value: 0
+   
+  - name: ml_risk_training_set
+    description: Labeled user-day table for the risk model. Only users with no prior enforcement. Label looks 14 days ahead.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [user_id, snapshot_date]
+    columns:
+      - name: enforced_next_14d
+        data_tests: [not_null]
