@@ -1,0 +1,35 @@
+{
+  "capacity_k": 500,
+  "model": {
+    "val_pr_auc": 0.18368525402790764,
+    "val_roc_auc": 0.7631817340657111,
+    "test_pr_auc": 0.11769717109071101,
+    "test_roc_auc": 0.697535168373174,
+    "at_capacity": {
+      "k": 500,
+      "precision": 0.07175000000000001,
+      "recall": 0.2269797134549314,
+      "base_rate": 0.011242577581303977,
+      "avg_caught": 35.875,
+      "avg_bad_per_day": 161.0625
+    }
+  },
+  "rules": {
+    "val_pr_auc": 0.07947308278718758,
+    "val_roc_auc": 0.5755429605867877,
+    "test_pr_auc": 0.06509863374079017,
+    "test_roc_auc": 0.5710782640642909,
+    "at_capacity": {
+      "k": 500,
+      "precision": 0.04975,
+      "recall": 0.15607094937866609,
+      "base_rate": 0.011242577581303977,
+      "avg_caught": 24.875,
+      "avg_bad_per_day": 161.0625
+    }
+  },
+  "cheapest_k": {
+    "model": 100,
+    "rules": 100
+  }
+}

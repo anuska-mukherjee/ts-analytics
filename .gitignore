@@ -54,3 +54,7 @@ logs/
 # Generated Python cache
 data_gen/__pycache__/
 analysis/__pycache__/
+
+# Risk model artifacts
+analysis/risk_model/*.joblib
+analysis/risk_model/*.csv.gz
