@@ -1,9 +1,15 @@
 
+import os
 import numpy as np
 import pandas as pd
 from faker import Faker
 
 from data_gen import config as c
+
+
+# ---------- OUTPUT DIRECTORY SETUP ----------
+os.makedirs(c.RAW_DIR, exist_ok=True)
+os.makedirs(c.TRUTH_DIR, exist_ok=True)
 
 
 # ---------- REPRODUCIBILITY ----------
@@ -204,7 +210,6 @@ devices = pd.DataFrame(
 
 users.to_csv(
     f"{c.RAW_DIR}/users.csv",
-    index=False,
 )
 
 devices.to_csv(
