@@ -48,6 +48,31 @@ On this synthetic dataset:
 
 The pipeline successfully recovered the planted ring.
 
+
+#### Threshold robustness analysis
+
+To evaluate sensitivity to the account-linking threshold, the detection rule was tested across eight thresholds using linked-account counts.
+
+| Minimum linked accounts | True positives | False positives | False negatives | Precision | Recall |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 40 | 763 | 0 | 4.98% | 100% |
+| 2 | 40 | 27 | 0 | 59.70% | 100% |
+| 3 | 40 | 0 | 0 | 100% | 100% |
+| 5 | 40 | 0 | 0 | 100% | 100% |
+| 10 | 35 | 0 | 5 | 100% | 87.50% |
+| 20 | 0 | 0 | 40 | 0% | 0% |
+| 30 | 0 | 0 | 40 | 0% | 0% |
+| 39 | 0 | 0 | 40 | 0% | 0% |
+
+A threshold of three linked accounts achieved perfect precision and recall on the synthetic validation dataset. Increasing the threshold to five preserved the same results, while a threshold of two introduced 27 false positives.
+
+A threshold of ten missed five coordinated-ring accounts.
+
+**Business implication:** Detection thresholds directly affect investigation workload and missed-network risk. Threshold selection should balance review capacity against recall, rather than relying on a single accuracy figure.
+
+**Limitation:** These results use deliberately planted account relationships and the synthetic ground-truth labels. They demonstrate threshold behaviour on this dataset, not expected production detection performance.
+
+
 ### Interpretation and limitations
 
 This is a controlled validation against deliberately planted patterns, not evidence of equivalent performance in production.

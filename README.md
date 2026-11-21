@@ -75,6 +75,20 @@ The account-linking pipeline builds relationships between users and aggregates n
 
 The planted ring shared six devices and five signup IP addresses.
 
+
+#### Detection threshold sensitivity
+
+| Minimum linked accounts | Precision | Recall |
+|---:|---:|---:|
+| 1 | 4.98% | 100% |
+| 2 | 59.70% | 100% |
+| 3 | 100% | 100% |
+| 5 | 100% | 100% |
+| 10 | 100% | 87.50% |
+
+A threshold of three linked accounts identified all 40 planted ring accounts without false positives. Raising the threshold to five preserved performance, while a threshold of ten missed five accounts.
+
+
 **Business implication:** Shared infrastructure signals can help investigators identify potentially coordinated networks. In a production environment, these signals would require time-aware analysis, confidence thresholds, and contextual investigation before enforcement.
 
 ### 2. Reporting Patterns and Policy-Period Changes
